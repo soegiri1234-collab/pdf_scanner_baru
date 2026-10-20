@@ -1,0 +1,44 @@
+name: Build APK Flutter
+
+on:
+  push:
+    branches: [ "main", "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.19.x'
+          channel: 'stable'
+
+      - name: Build APK via Temp Project
+        run: |
+          flutter create temp_app --platforms=android --org com.example.pdfscanner
+          rm -rf temp_app/lib temp_app/pubspec.yaml
+          if [ -d "lib" ]; then
+            cp -r lib temp_app/
+          elif [ -d "Lib" ]; then
+            cp -r Lib temp_app/lib
+          fi
+          cp pubspec.yaml temp_app/
+          cd temp_app
+          flutter pub get
+          flutter build apk --release
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release
+          path: temp_app/build/app/outputs/flutter-apk/app-release.apk
