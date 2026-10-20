@@ -1,0 +1,23 @@
+name: pdf_scanner_app
+description: A mobile PDF scanner app with auto-alignment and compression.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  google_mlkit_document_scanner: ^0.4.0
+  pdf: ^3.10.4
+  path_provider: ^2.1.2
+  flutter_image_compress: ^2.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
