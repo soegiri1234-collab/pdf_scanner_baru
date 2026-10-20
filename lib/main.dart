@@ -47,7 +47,7 @@ class _ScanHomePageState extends State<ScanHomePage> {
     try {
       final options = DocumentScannerOptions(
         documentFormat: DocumentFormat.jpeg,
-        mode: DocumentScannerMode.full,
+        mode: ScannerMode.full,
         isGalleryImport: true,
         pageLimit: 10,
       );
