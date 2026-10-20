@@ -34,8 +34,9 @@ jobs:
           fi
           cp pubspec.yaml temp_app/
           
-          # Otomatis ubah minSdkVersion menjadi 21 agar sesuai dengan plugin
-          sed -i 's/minSdkVersion.*/minSdkVersion 21/' temp_app/android/app/build.gradle
+          # Paksa set minSdkVersion ke 21 secara aman
+          sed -i 's/minSdkVersion.*/minSdkVersion 21/g' temp_app/android/app/build.gradle
+          sed -i 's/minSdkVersion.*/minSdkVersion 21/g' temp_app/android/local.properties || true
           
           cd temp_app
           flutter pub get
